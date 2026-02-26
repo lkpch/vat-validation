@@ -9,7 +9,7 @@ export default tseslint.config(
   {
     languageOptions: {
       parserOptions: {
-        projectService: true,
+        project: './tsconfig.test.json',
         tsconfigRootDir: import.meta.dirname
       }
     },
@@ -34,6 +34,6 @@ export default tseslint.config(
     }
   },
   {
-    ignores: ['lib/', 'types/', 'test/', 'node_modules/']
+    ignores: ['lib/', 'types/', 'node_modules/']
   }
 );
