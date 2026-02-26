@@ -28,8 +28,6 @@ npm i vat-validation --save
 
 (or `yarn add vat-validation`)
 
-For legacy versions (below v2.0.0) also possible: Bower: `bower i vat-validation --save`
-
 ## Getting Started
 
 ```javascript
@@ -44,7 +42,6 @@ or
 
 ```javascript
 import { checkVAT, countries } from 'vat-validation';
-('countries');
 checkVAT('BE0411905847', countries); // check against all supported countries
 ```
 
@@ -156,48 +153,16 @@ export const wonderland = {
 checkVAT('WD12345678', [wonderland]); // true
 ```
 
-## About modules... ES6 / CommonJS / AMD / UMD / System
+## Module formats
 
-vat-validation build includes `es6`, `commonjs`, `amd`, `umd` and `system` builds at the same time.
-
-By default you will stick to `es6` version for browsers and build tools (webpack, etc):
-which expects you to import it as
+vat-validation ships both ESM and CommonJS builds:
 
 ```javascript
+// ESM
 import { checkVAT, belgium, austria } from 'vat-validation';
-```
 
-Node.js automatically will pick up `CommonJS` version by default.
-Means you could import it like:
-
-```jsx harmony
-// Modern Frontend and Node
+// CommonJS
 const { checkVAT, belgium, austria } = require('vat-validation');
-
-// Node.js
-const { checkVAT, belgium, austria } = require('vat-validation');
-
-// Legacy Frontend
-<script src="whatever/vat-validation/lib/umd/index.js"></script>;
-```
-
-Alternatively you can specify which module system you do want, e.g.:
-
-```jsx harmony
-// CommonJS (i.g nodejs)
-const { checkVAT, belgium, austria } = require('vat-validation/lib/commonjs');
-
-// ES6
-import { checkVAT, belgium, austria } from 'vat-validation/lib/es6';
-
-// UMD
-<script src="whatever/vat-validation/lib/umd/index.js"></script>;
-
-// AMD
-const { checkVAT, belgium, austria } = require('vat-validation/lib/amd');
-
-// System
-import { checkVAT, belgium, austria } from 'vat-validation/lib/system';
 ```
 
 ## How vat-validation checks validity?
@@ -219,8 +184,6 @@ NOTE:
 VAT numbers of some countries should ends up with special characters. Like '01' for Sweden or "L" for Cyprus.
 If 100% real VAT doesn't fit, try to add proper appendix.
 
-## Browsers Supports
+## Browser Support
 
-Support only of evergreen browsers.
-
-Legacy versions (below v2.0.0) supports all browsers down to IE9 (including IE9).
+Evergreen browsers only.
