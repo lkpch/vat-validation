@@ -2,11 +2,11 @@
 
 ## vat-validation
 
-Check the validity of the format of an EU VAT number. No dependencies.
+Check the validity of a VAT number. No dependencies.
 
 ## What is it?
 
-Small library to check validity VAT numbers (European + some others counties). ([learn more][1] about VAT)
+Small library to check validity of VAT numbers (European + some other countries). ([learn more][1] about VAT)
 
 - No dependencies;
 - No http calls;
@@ -70,26 +70,34 @@ export interface VatCheckResult {
 }
 ```
 
-## List of supported Countries:
+## Strict mode
+
+By default, `checkVAT` is lenient — it strips spaces, dashes, dots, and slashes before validating. If you want to validate the raw input as-is (only uppercasing is applied), pass the `strict` option:
+
+```javascript
+checkVAT('BE 0411.905.847', [belgium]); // isValid: true (lenient, extra chars stripped)
+checkVAT('BE 0411.905.847', [belgium], { strict: true }); // isValid: false (spaces and dots not stripped)
+checkVAT('BE0411905847', [belgium], { strict: true }); // isValid: true
+```
+
+## List of supported countries:
 
 - Andorra
+- Australia
 - Austria
 - Belgium
 - Brazil
 - Bulgaria
-- Switzerland
+- Croatia
 - Cyprus
 - Czech Republic
-- Germany
 - Denmark
-- Greece
-- Spain
-- Europe
 - Estonia
+- Europe (EU MOSS scheme)
 - Finland
 - France
-- United Kingdom
-- Croatia
+- Germany
+- Greece
 - Hungary
 - Ireland
 - Italy
@@ -104,9 +112,13 @@ export interface VatCheckResult {
 - Romania
 - Russia Federation
 - Serbia
+- Singapore
+- Slovakia Republic
 - Slovenia
-- Slovakia republic
+- Spain
 - Sweden
+- Switzerland
+- United Kingdom (incl. Northern Ireland XI prefix)
 
 ## How to import all countries at once?
 
@@ -167,18 +179,17 @@ const { checkVAT, belgium, austria } = require('vat-validation');
 
 ## How vat-validation checks validity?
 
-There is 2-step check:
+There is a 2-step check:
 
-1. Compare with list of Regexps;
+1. **Format validation** — compare against a list of regular expressions.
 
-For example regexp for austria is `/^(AT)U(\d{8})$/`.
+For example, the regexp for Austria is `/^(AT)U(\d{8})$/`.
+`ATU99999999` satisfies the regexp, but it should actually be invalid.
 
-Looks like `ATU99999999` is valid (it's satisfy the regexp), but actually it's should be invalid.
+2. **Check digit validation** — verify the number's built-in check digit(s).
 
-2. Some magic mathematical counting;
-
-Here we make some mathematical calculation (different for each country).
-After that we may be sure that `ATU99999999`and for example `ATV66889218` isn't valid, but `ATU12011204` is valid.
+Most VAT numbers contain one or more check digits calculated using a country-specific algorithm (weighted sums, modular arithmetic, etc.). This step catches numbers that look right but are mathematically invalid.
+After this step we can be sure that `ATU99999999` and `ATV66889218` are invalid, while `ATU12011204` is valid.
 
 NOTE:
 VAT numbers of some countries should ends up with special characters. Like '01' for Sweden or "L" for Cyprus.
