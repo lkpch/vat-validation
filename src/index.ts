@@ -35,7 +35,7 @@ import {
   switzerland,
   unitedKingdom
 } from './lib/countries';
-import { Country } from './lib/jsvat';
+import { Country } from './lib/vat-validation';
 
 export const countries: ReadonlyArray<Country> = [
   andorra,
@@ -113,4 +113,4 @@ export {
   unitedKingdom
 } from './lib/countries';
 
-export { checkVAT, Rules, Country, Multipliers, VatCheckResult } from './lib/jsvat';
+export { checkVAT, Rules, Country, Multipliers, VatCheckResult } from './lib/vat-validation';

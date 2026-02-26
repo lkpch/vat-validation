@@ -1,5 +1,5 @@
 import { checkVAT } from './index';
-import { Country } from './lib/jsvat';
+import { Country } from './lib/vat-validation';
 
 export function checkValidVat(
   vat: string,

@@ -1,5 +1,5 @@
 {
-  "name": "jsvat",
+  "name": "vat-validation",
   "version": "2.5.4",
   "description": "Check the validity of the format of an EU VAT number",
   "main": "./dist/index.cjs",
@@ -25,16 +25,8 @@
     "prepare": "husky"
   },
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/se-panfilov/jsvat.git"
-  },
-  "bugs": {
-    "url": "https://github.com/se-panfilov/jsvat/issues"
-  },
-  "homepage": "https://se-panfilov.github.io/jsvat/",
   "keywords": [
-    "jsvat",
+    "vat-validation",
     "EU",
     "vat",
     "VAT",
@@ -52,7 +44,7 @@
     "tax"
   ],
   "ignore": {},
-  "author": "S.Panfilov <se-panfilov@ya.ru> (https://se-panfilov.github.io)",
+  "author": "",
   "contributors": [
     "Wilgert Velinga <wilgert@wilgert.nl> (http://wilgert.nl)"
   ],

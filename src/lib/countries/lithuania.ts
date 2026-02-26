@@ -1,4 +1,4 @@
-import { Country, Rules } from '../jsvat';
+import { Country, Rules } from '../vat-validation';
 
 export const lithuania: Country = {
   name: 'Lithuania',

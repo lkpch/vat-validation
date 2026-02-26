@@ -1,10 +1,6 @@
-[![Known Vulnerabilities](https://snyk.io/test/github/se-panfilov/jsvat/badge.svg?targetFile=package.json)](https://snyk.io/test/github/se-panfilov/jsvat?targetFile=package.json)
-[![npm version](https://badge.fury.io/js/jsvat.svg)](http://badge.fury.io/js/jsvat)
-[![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/se-panfilov/jsvat/blob/master/LICENSE)
+[![npm version](https://badge.fury.io/js/vat-validation.svg)](http://badge.fury.io/js/vat-validation)
 
-## jsvat
-
-[[Demo and Examples]][2]
+## vat-validation
 
 Check the validity of the format of an EU VAT number. No dependencies.
 
@@ -27,17 +23,17 @@ Small library to check validity VAT numbers (European + some others counties). (
 Installation:
 
 ```bash
-npm i jsvat --save
+npm i vat-validation --save
 ```
 
-(or `yarn add jsvat`)
+(or `yarn add vat-validation`)
 
-For legacy versions (below v2.0.0) also possible: Bower: `bower i jsvat --save`
+For legacy versions (below v2.0.0) also possible: Bower: `bower i vat-validation --save`
 
 ## Getting Started
 
 ```javascript
-import { checkVAT, belgium, austria } from 'jsvat';
+import { checkVAT, belgium, austria } from 'vat-validation';
 
 checkVAT('BE0411905847', [belgium]); // true: accept only Belgium VATs
 checkVAT('BE0411905847', [belgium, austria]); // true: accept only Belgium or Austria VATs
@@ -47,7 +43,7 @@ checkVAT('BE0411905847', [austria]); // false: accept only Austria VATs
 or
 
 ```javascript
-import { checkVAT, countries } from 'jsvat';
+import { checkVAT, countries } from 'vat-validation';
 ('countries');
 checkVAT('BE0411905847', countries); // check against all supported countries
 ```
@@ -63,7 +59,7 @@ export interface VatCheckResult {
   value?: string; // 'BE0411905847': your VAT without extra characters (like '-', spaces, etc)
   isValid: boolean; // The main result. Indicates if VAT is correct against provided countries or not
   isValidFormat: boolean; // Indicates the validation of the format of VAT only. E.g. "BE0411905847" is a valid VAT, and "BE0897221791" is not. But they both has valid format, so "isValidFormat" will return "true"
-  isSupportedCountry: boolean; // Indicates if "jsvat" could recognize the VAT. Sometimes you want to understand - if it's an invalid VAT from supported country or from an unknown one
+  isSupportedCountry: boolean; // Indicates if "vat-validation" could recognize the VAT. Sometimes you want to understand - if it's an invalid VAT from supported country or from an unknown one
   country?: {
     // VAT's country (null if not found). By "supported" I mean imported.
     name: string; // ISO country name of VAT
@@ -118,8 +114,8 @@ export interface VatCheckResult {
 ## How to import all countries at once?
 
 ```javascript
-import { checkVAT, countries } from 'jsvat';
-// const { checkVAT, countries } = require('jsvat');
+import { checkVAT, countries } from 'vat-validation';
+// const { checkVAT, countries } = require('vat-validation');
 
 checkVAT('WD12345678', countries);
 ```
@@ -144,7 +140,7 @@ interface Country {
 Example:
 
 ```javascript
-import { checkVAT } from 'jsvat';
+import { checkVAT } from 'vat-validation';
 
 export const wonderland = {
   name: 'Wonderland',
@@ -162,13 +158,13 @@ checkVAT('WD12345678', [wonderland]); // true
 
 ## About modules... ES6 / CommonJS / AMD / UMD / System
 
-jsvat build includes `es6`, `commonjs`, `amd`, `umd` and `system` builds at the same time.
+vat-validation build includes `es6`, `commonjs`, `amd`, `umd` and `system` builds at the same time.
 
 By default you will stick to `es6` version for browsers and build tools (webpack, etc):
 which expects you to import it as
 
 ```javascript
-import { checkVAT, belgium, austria } from 'jsvat';
+import { checkVAT, belgium, austria } from 'vat-validation';
 ```
 
 Node.js automatically will pick up `CommonJS` version by default.
@@ -176,35 +172,35 @@ Means you could import it like:
 
 ```jsx harmony
 // Modern Frontend and Node
-const { checkVAT, belgium, austria } = require('jsvat');
+const { checkVAT, belgium, austria } = require('vat-validation');
 
 // Node.js
-const { checkVAT, belgium, austria } = require('jsvat');
+const { checkVAT, belgium, austria } = require('vat-validation');
 
 // Legacy Frontend
-<script src="whatever/jsvat/lib/umd/index.js"></script>;
+<script src="whatever/vat-validation/lib/umd/index.js"></script>;
 ```
 
 Alternatively you can specify which module system you do want, e.g.:
 
 ```jsx harmony
 // CommonJS (i.g nodejs)
-const { checkVAT, belgium, austria } = require('jsvat/lib/commonjs');
+const { checkVAT, belgium, austria } = require('vat-validation/lib/commonjs');
 
 // ES6
-import { checkVAT, belgium, austria } from 'jsvat/lib/es6';
+import { checkVAT, belgium, austria } from 'vat-validation/lib/es6';
 
 // UMD
-<script src="whatever/jsvat/lib/umd/index.js"></script>;
+<script src="whatever/vat-validation/lib/umd/index.js"></script>;
 
 // AMD
-const { checkVAT, belgium, austria } = require('jsvat/lib/amd');
+const { checkVAT, belgium, austria } = require('vat-validation/lib/amd');
 
 // System
-import { checkVAT, belgium, austria } from 'jsvat/lib/system';
+import { checkVAT, belgium, austria } from 'vat-validation/lib/system';
 ```
 
-## How jsvat checks validity?
+## How vat-validation checks validity?
 
 There is 2-step check:
 
@@ -228,41 +224,3 @@ If 100% real VAT doesn't fit, try to add proper appendix.
 Support only of evergreen browsers.
 
 Legacy versions (below v2.0.0) supports all browsers down to IE9 (including IE9).
-
-## LICENSE
-
-The MIT License (MIT)
-
-Copyright (c) 2015 Sergei Panfilov
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-## Legal Disclaimer
-
-This project is provided "as is", without warranty of any kind. The authors and contributors disclaim all liability for any damages arising from its use, inability to use, or performance. Users are responsible for ensuring compliance with applicable laws and regulations in their jurisdiction, including but not limited to:
-
-- European Union: Cyber Resilience Act (CRA) and Artificial Intelligence Act (AI Act)
-- United States: Uniform Commercial Code (UCC) and Export Administration Regulations (EAR)
-- China: Cybersecurity Law
-- India: Information Technology Act
-
-For details, see the full [DISCLAIMER.md](DISCLAIMER.md) file.
-
-[1]: https://en.wikipedia.org/wiki/VAT_identification_number
-[2]: https://se-panfilov.github.io/jsvat
