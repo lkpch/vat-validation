@@ -30,20 +30,48 @@ const isRepeatedArray = (varNumbers: ReadonlyArray<number>) =>
  */
 const getRemaining = (value: number): number => (value % 11 < 2 ? 0 : 11 - (value % 11));
 
+function validateCNPJ(vat: string): boolean {
+  const numbers = vat.split('').map(Number);
+  if (isRepeatedArray(numbers)) {
+    return false;
+  }
+  const validators: ReadonlyArray<number> = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+  const checkers = generateCheckSums(numbers, validators);
+  return numbers[12] === getRemaining(checkers[0]) && numbers[13] === getRemaining(checkers[1]);
+}
+
+function validateCPF(vat: string): boolean {
+  const numbers = vat.split('').map(Number);
+  if (isRepeatedArray(numbers)) {
+    return false;
+  }
+
+  // First check digit: multiply first 9 digits by 10..2, then mod 11
+  let sum = 0;
+  for (let i = 0; i < 9; i++) {
+    sum += numbers[i] * (10 - i);
+  }
+  const first = getRemaining(sum);
+  if (numbers[9] !== first) return false;
+
+  // Second check digit: multiply first 10 digits by 11..2, then mod 11
+  sum = 0;
+  for (let i = 0; i < 10; i++) {
+    sum += numbers[i] * (11 - i);
+  }
+  const second = getRemaining(sum);
+  return numbers[10] === second;
+}
+
 export const brazil: Country = {
   name: 'Brazil',
   codes: ['BR', 'BRA', '076'],
   calcFn: (vat: string): boolean => {
-    const numbers = vat.split('').map(Number);
-    if (isRepeatedArray(numbers)) {
-      return false;
-    }
-    const validators: ReadonlyArray<number> = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-    const checkers = generateCheckSums(numbers, validators);
-    return numbers[12] === getRemaining(checkers[0]) && numbers[13] === getRemaining(checkers[1]);
+    if (vat.length === 11) return validateCPF(vat);
+    return validateCNPJ(vat);
   },
   rules: {
     multipliers: {},
-    regex: [/^(BR)?(\d{14}|\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})$/]
+    regex: [/^(BR)?(\d{14}|\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}|\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$/]
   }
 };
