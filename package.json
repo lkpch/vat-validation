@@ -1,6 +1,6 @@
 {
   "name": "vat-validation",
-  "version": "2.5.4",
+  "version": "3.0.0-beta.1",
   "description": "Check the validity of the format of an EU VAT number",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
