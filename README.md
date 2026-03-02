@@ -4,6 +4,8 @@
 
 Check the validity of a VAT number. No dependencies.
 
+Fork of [jsvat](https://se-panfilov.github.io/jsvat/).
+
 ## What is it?
 
 Small library to check validity of VAT numbers (European + some other countries). ([learn more][1] about VAT)
